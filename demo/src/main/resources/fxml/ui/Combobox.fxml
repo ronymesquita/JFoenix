@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-           xmlns="http://javafx.com/javafx/2.2">
+           xmlns="http://javafx.com/javafx/2.2" fx:controller="demos.gui.uicomponents.ComboBoxController">
     <HBox spacing="100" maxWidth="500" maxHeight="300" alignment="BASELINE_CENTER">
         <VBox spacing="20">
             <Label styleClass="title-label">Combo Box</Label>

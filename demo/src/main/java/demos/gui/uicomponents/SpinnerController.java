@@ -1,25 +1,25 @@
 package demos.gui.uicomponents;
 
 import com.jfoenix.controls.JFXSpinner;
-import io.datafx.controller.ViewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Spinner.fxml", title = "Material Design Example")
-public class SpinnerController {
+public class SpinnerController implements Initializable {
 
     @FXML
     private JFXSpinner blueSpinner;
     @FXML
     private JFXSpinner greenSpinner;
 
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         Timeline timeline = new Timeline(
             new KeyFrame(
                 Duration.ZERO,

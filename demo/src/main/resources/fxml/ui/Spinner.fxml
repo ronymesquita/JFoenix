@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Label?>
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-           xmlns="http://javafx.com/javafx/2.2">
+           xmlns="http://javafx.com/javafx/2.2" fx:controller="demos.gui.uicomponents.SpinnerController">
 
     <StackPane>
         <JFXSpinner styleClass="materialDesign-purple, first-spinner" startingAngle="-40"/>

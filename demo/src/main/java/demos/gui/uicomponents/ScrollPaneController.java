@@ -4,15 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.svg.SVGGlyph;
-import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/ScrollPane.fxml", title = "Material Design Example")
-public class ScrollPaneController {
+public class ScrollPaneController implements Initializable {
 
     @FXML
     private JFXListView<String> contentList;
@@ -24,9 +24,8 @@ public class ScrollPaneController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         for (int i = 0; i < 100; i++) {
             contentList.getItems().add("Item " + i);
         }

@@ -5,16 +5,16 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
-import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Popup.fxml", title = "Material Design Example")
-public final class PopupController {
+public final class PopupController implements Initializable {
 
     @FXML
     private StackPane root;
@@ -42,8 +42,8 @@ public final class PopupController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             popup = new JFXPopup(FXMLLoader.load(getClass().getResource("/fxml/ui/popup/DemoPopup.fxml")));
         } catch (IOException ioExc) {

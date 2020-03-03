@@ -5,23 +5,22 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
-import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
+import demos.Context;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Dialog.fxml", title = "Material Design Example")
-public class DialogController {
+
+public class DialogController implements Initializable {
 
     public static final String CONTENT_PANE = "ContentPane";
-    @FXMLViewFlowContext
-    private ViewFlowContext context;
     @FXML
     private JFXButton centerButton;
     @FXML
@@ -44,33 +43,36 @@ public class DialogController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         root.getChildren().remove(dialog);
 
+        StackPane contentPane = (StackPane)Context.getInstance().getDrawer().getChildren().get(0);
+
         centerButton.setOnAction(action -> {
+            System.out.println("action");
             dialog.setTransitionType(DialogTransition.CENTER);
-            dialog.show((StackPane) context.getRegisteredObject(CONTENT_PANE));
+            dialog.show(contentPane);
         });
 
         topButton.setOnAction(action -> {
             dialog.setTransitionType(DialogTransition.TOP);
-            dialog.show((StackPane) context.getRegisteredObject(CONTENT_PANE));
+            dialog.show(contentPane);
         });
 
         rightButton.setOnAction(action -> {
             dialog.setTransitionType(DialogTransition.RIGHT);
-            dialog.show((StackPane) context.getRegisteredObject(CONTENT_PANE));
+            dialog.show(contentPane);
         });
 
         bottomButton.setOnAction(action -> {
             dialog.setTransitionType(DialogTransition.BOTTOM);
-            dialog.show((StackPane) context.getRegisteredObject(CONTENT_PANE));
+            dialog.show(contentPane);
         });
 
         leftButton.setOnAction(action -> {
             dialog.setTransitionType(DialogTransition.LEFT);
-            dialog.show((StackPane) context.getRegisteredObject(CONTENT_PANE));
+            dialog.show(contentPane);
         });
 
         acceptButton.setOnAction(action -> dialog.close());

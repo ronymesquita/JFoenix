@@ -1,39 +1,26 @@
 package demos.gui.main;
 
-import static io.datafx.controller.flow.container.ContainerAnimations.SWIPE_LEFT;
-
-import javax.annotation.PostConstruct;
-
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXTooltip;
-
-import demos.datafx.ExtendedAnimatedFlowContainer;
+import demos.Context;
+import demos.MainDemo;
 import demos.gui.sidemenu.SideMenuController;
-import demos.gui.uicomponents.ButtonController;
-import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.Flow;
-import io.datafx.controller.flow.FlowHandler;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
 import javafx.animation.Transition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-@ViewController(value = "/fxml/Main.fxml", title = "Material Design Example")
-public final class MainController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXMLViewFlowContext
-    private ViewFlowContext context;
+public final class MainController implements Initializable {
 
     @FXML
     private StackPane root;
@@ -55,8 +42,9 @@ public final class MainController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() throws Exception {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // init the title hamburger icon
         final JFXTooltip burgerTooltip = new JFXTooltip("Open drawer");
 
@@ -82,7 +70,11 @@ public final class MainController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ui/popup/MainPopup.fxml"));
         loader.setController(new InputController());
-        toolbarPopup = new JFXPopup(loader.load());
+        try {
+            toolbarPopup = new JFXPopup(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         optionsBurger.setOnMouseClicked(e ->
             toolbarPopup.show(optionsBurger,
@@ -93,23 +85,29 @@ public final class MainController {
         JFXTooltip.setVisibleDuration(Duration.millis(3000));
         JFXTooltip.install(titleBurgerContainer, burgerTooltip, Pos.BOTTOM_CENTER);
 
-        // create the inner flow and content
-        context = new ViewFlowContext();
-        // set the default controller
-        Flow innerFlow = new Flow(ButtonController.class);
+        try {
+            FXMLLoader sideMenuLoader =  new FXMLLoader();
+            StackPane sideMenu = sideMenuLoader.load(getClass().getResource("/fxml/SideMenu.fxml").openStream());
+            SideMenuController sideMenuController = sideMenuLoader.getController();
+            sideMenuController.selectedLabelProperty().addListener((obs, oldLabel, newLabel) -> {
+                String contentPath = sideMenuController.getMenuPath(newLabel.getId());
+                try {
+                    StackPane content = FXMLLoader.load(getClass().getResource(contentPath));
+                    drawer.setContent(content);
+                    drawer.close();
 
-        final FlowHandler flowHandler = innerFlow.createHandler(context);
-        context.register("ContentFlowHandler", flowHandler);
-        context.register("ContentFlow", innerFlow);
-        final Duration containerAnimationDuration = Duration.millis(320);
-        drawer.setContent(flowHandler.start(new ExtendedAnimatedFlowContainer(containerAnimationDuration, SWIPE_LEFT)));
-        context.register("ContentPane", drawer.getContent().get(0));
-
-        // side controller will add links to the content flow
-        Flow sideMenuFlow = new Flow(SideMenuController.class);
-        final FlowHandler sideMenuFlowHandler = sideMenuFlow.createHandler(context);
-        drawer.setSidePane(sideMenuFlowHandler.start(new ExtendedAnimatedFlowContainer(containerAnimationDuration,
-            SWIPE_LEFT)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            // Load initial content
+            StackPane content = FXMLLoader.load(getClass().getResource("/fxml/ui/Button.fxml"));
+            drawer.setContent(content);
+            drawer.setSidePane(sideMenu);
+            Context.getInstance().setDrawer(drawer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static final class InputController {

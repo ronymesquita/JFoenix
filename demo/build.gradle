@@ -15,11 +15,6 @@ javafx {
 }
 
 dependencies {
-    // NOTE: the latest version _is_ 8.0.1!
-    // 8.0.7 was published by mistake
-    implementation 'io.datafx:datafx:8.0.1'
-    implementation 'io.datafx:flow:8.0.1'
-
     // FontAwesome
     // Versions higher than 2.x are for Java 11
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.3.4'

@@ -5,13 +5,13 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXSlider.IndicatorPosition;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.svg.SVGGlyphLoader;
-import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
+import demos.Context;
+import demos.MainDemo;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -22,17 +22,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-@ViewController(value = "/fxml/ui/SVGLoader.fxml", title = "Material Design Example")
-public class SVGLoaderController {
+public class SVGLoaderController implements Initializable {
 
     private static final String FX_BACKGROUND_INSETS_0 = "-fx-background-insets: 0;";
     private static final String DEFAULT_OPACITY = "33";
@@ -40,8 +40,6 @@ public class SVGLoaderController {
     private static final String ANIMATED_THUMB = ".animated-thumb";
     private static final String COLORED_TRACK = ".colored-track";
 
-    @FXMLViewFlowContext
-    private ViewFlowContext context;
     @FXML
     private StackPane detailsContainer;
     @FXML
@@ -56,9 +54,9 @@ public class SVGLoaderController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() throws Exception {
-        final Stage stage = (Stage) context.getRegisteredObject("Stage");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        final Stage stage =  Context.getInstance().getPrimaryStage();
 
         glyphDetailViewer = new GlyphDetailViewer();
         detailsContainer.getChildren().add(glyphDetailViewer);

@@ -1,22 +1,18 @@
 package demos.gui.uicomponents;
 
-import com.jfoenix.controls.JFXBadge;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
-import com.jfoenix.controls.JFXSnackbarLayout;
-import io.datafx.controller.ViewController;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Icons.fxml", title = "Material Design Example")
-public class IconsController {
+public class IconsController implements Initializable {
 
     @FXML
     private JFXHamburger burger1;
@@ -39,9 +35,8 @@ public class IconsController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         bindAction(burger1);
         bindAction(burger2);
         bindAction(burger3);

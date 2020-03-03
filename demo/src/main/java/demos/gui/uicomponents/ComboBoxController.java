@@ -1,16 +1,16 @@
 package demos.gui.uicomponents;
 
 import com.jfoenix.controls.JFXComboBox;
-import io.datafx.controller.ViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.util.StringConverter;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Combobox.fxml", title = "Material Design Example")
-public class ComboBoxController {
+public class ComboBoxController implements Initializable {
 
     @FXML
     private JFXComboBox<Label> jfxComboBox;
@@ -20,9 +20,10 @@ public class ComboBoxController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        System.out.println(jfxComboBox);
         jfxComboBox.focusedProperty().addListener((o, oldVal, newVal) -> {
             if (!newVal) {
                 jfxComboBox.validate();

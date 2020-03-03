@@ -1,17 +1,17 @@
 package demos.gui.uicomponents;
 
 import com.jfoenix.controls.JFXProgressBar;
-import io.datafx.controller.ViewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/ProgressBar.fxml", title = "Material Design Example")
-public class ProgressBarController {
+public class ProgressBarController implements Initializable {
 
     @FXML
     private JFXProgressBar progress1;
@@ -21,8 +21,8 @@ public class ProgressBarController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         Timeline task = new Timeline(
             new KeyFrame(
                 Duration.ZERO,

@@ -2,13 +2,14 @@ package demos.gui.uicomponents;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
-import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/ListView.fxml", title = "Material Design Example")
-public class ListViewController {
+
+public class ListViewController implements Initializable {
 
     @FXML
     private JFXListView<?> list1;
@@ -28,9 +29,8 @@ public class ListViewController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         button3D.setOnMouseClicked((e) -> {
             int val = ++counter % 2;
             list1.depthProperty().set(val);

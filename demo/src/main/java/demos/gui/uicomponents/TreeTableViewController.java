@@ -5,7 +5,6 @@ import com.jfoenix.controls.cells.editors.IntegerTextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import io.datafx.controller.ViewController;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,17 +15,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellEditEvent;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 
-@ViewController(value = "/fxml/ui/TreeTableView.fxml", title = "Material Design Example")
-public class TreeTableViewController {
+public class TreeTableViewController implements Initializable {
 
     private static final String PREFIX = "( ";
     private static final String POSTFIX = " )";
@@ -72,8 +72,8 @@ public class TreeTableViewController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         setupReadOnlyTableView();
         setupEditableTableView();
     }

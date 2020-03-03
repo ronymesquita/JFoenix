@@ -4,7 +4,7 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.*?>
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-           xmlns="http://javafx.com/javafx/2.2">
+           xmlns="http://javafx.com/javafx/2.2" fx:controller="demos.gui.uicomponents.PopupController">
 
     <AnchorPane styleClass="animated-burgers">
         <JFXRippler fx:id="rippler1" maskType="CIRCLE"

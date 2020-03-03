@@ -6,13 +6,13 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.svg.SVGGlyph;
-import io.datafx.controller.ViewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,13 +23,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import static javafx.animation.Interpolator.EASE_BOTH;
 
-@ViewController(value = "/fxml/ui/Masonry.fxml", title = "Material Design Example")
-public class MasonryPaneController {
+public class MasonryPaneController implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
@@ -39,8 +39,8 @@ public class MasonryPaneController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<Node> children = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             StackPane child = new StackPane();
