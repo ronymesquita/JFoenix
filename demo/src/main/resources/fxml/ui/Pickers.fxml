@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
-           xmlns="http://javafx.com/javafx/2.2">
+           xmlns="http://javafx.com/javafx/2.2" fx:controller="demos.gui.uicomponents.PickersController">
     <VBox maxWidth="500" maxHeight="400">
         <children>
             <Label styleClass="title-label">Popup ups</Label>

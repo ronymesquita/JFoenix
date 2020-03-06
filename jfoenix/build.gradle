@@ -2,6 +2,7 @@ apply plugin: 'biz.aQute.bnd.builder'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'java-library'
 apply plugin: 'org.openjfx.javafxplugin'
+apply plugin: 'maven-publish'
 
 apply from: rootProject.file('gradle/license.gradle')
 
@@ -23,7 +24,8 @@ compileJava {
             '--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix',
             '--add-exports=javafx.controls/com.sun.javafx.scene.control.inputmap=com.jfoenix',
             '--add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix',
-            '--add-exports=javafx.base/com.sun.javafx.event=com.jfoenix'
+            '--add-exports=javafx.base/com.sun.javafx.event=com.jfoenix',
+            '--add-exports=javafx.graphics/com.sun.javafx.text=com.jfoenix'
     ]
 }
 
@@ -50,6 +52,9 @@ task sourcesJar(type: Jar) {
 }
 
 javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
     excludes = ['**/*.html', 'META-INF/**']
 
     options.use = true
@@ -59,8 +64,8 @@ javadoc {
     options.version = true
     options.windowTitle = "$project.name $project.version API"
     options.docTitle = "$project.name $project.version API"
-    options.links = ['http://docs.oracle.com/javase/9/docs/api/',
-                     'http://docs.oracle.com/javase/9/javafx/api/']
+    options.links = ['https://docs.oracle.com/en/java/javase/11/docs/api/',
+                     'https://openjfx.io/javadoc/11/']
 }
 
 task javadocJar(type: Jar) {
@@ -91,5 +96,39 @@ jar {
       //  'Bundle-RequiredExecutionEnvironment', 'JavaSE-1.9',
         'Bundle-Description': 'JavaFX Material Design Library'
     )
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'jfoenix'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'JFoenix'
+                description = 'JFoenix is an open source Java library, that implements Google Material Design using Java components'
+                url = 'http://www.jfoenix.com'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                scm {
+                    connection = 'https://github.com/jfoenixadmin/JFoenix.git'
+                    developerConnection = 'git@github.com:jfoenixadmin/JFoenix.git'
+                    url = 'https://github.com/jfoenixadmin/JFoenix'
+                }
+            }
+        }
+    }
 }
 

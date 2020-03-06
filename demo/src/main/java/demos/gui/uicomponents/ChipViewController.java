@@ -6,22 +6,23 @@ import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.svg.SVGGlyphLoader;
-import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.util.StringConverter;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/ChipView.fxml", title = "Material Design Example")
-public class ChipViewController {
+public class ChipViewController implements Initializable {
+
     @FXML
     private JFXChipView<MyShape> chipView;
 
-    @PostConstruct
-    public void init() throws Exception {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         chipView.setChipFactory((emailJFXChipView, email) -> new JFXDefaultChip<MyShape>(emailJFXChipView, email){
             {
@@ -33,31 +34,38 @@ public class ChipViewController {
         });
 
         HashMap<String, MyShape> suggestions = new HashMap<>();
-        suggestions.put("Glass", new MyShape("Glass", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.glass")));
-        suggestions.put("Star", new MyShape("Star", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.star")));
-        suggestions.put("Music", new MyShape("Music", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.music")));
-        final SVGGlyph icoMoonGlyph = SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.heart");
-        icoMoonGlyph.getStyleClass().add("heart");
-        suggestions.put("Heart", new MyShape("Heart", icoMoonGlyph));
-        suggestions.put("Film", new MyShape("Film", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.film")));
+        try {
+            suggestions.put("Glass", new MyShape("Glass", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.glass")));
+            suggestions.put("Star", new MyShape("Star", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.star")));
+            suggestions.put("Music", new MyShape("Music", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.music")));
+            final SVGGlyph icoMoonGlyph = SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.heart");
+            icoMoonGlyph.getStyleClass().add("heart");
+            suggestions.put("Heart", new MyShape("Heart", icoMoonGlyph));
+            suggestions.put("Film", new MyShape("Film", SVGGlyphLoader.getIcoMoonGlyph("icomoon.svg.film")));
 
-        chipView.setConverter(new StringConverter<MyShape>() {
-            @Override
-            public String toString(MyShape object) {
-                return object.toString();
-            }
 
-            @Override
-            public MyShape fromString(String string) {
-                MyShape found = suggestions.get(string);
-                return found == null ? new MyShape(string, null) : found;
-            }
-        });
-        chipView.getSuggestions().addAll(suggestions.values());
-        chipView.setSuggestionsCellFactory(param -> new JFXListCell<>());
+            chipView.setConverter(new StringConverter<MyShape>() {
+                @Override
+                public String toString(MyShape object) {
+                    return object.toString();
+                }
 
-        JFXDepthManager.setDepth(chipView, 2);
+                @Override
+                public MyShape fromString(String string) {
+                    MyShape found = suggestions.get(string);
+                    return found == null ? new MyShape(string, null) : found;
+                }
+            });
+            chipView.getSuggestions().addAll(suggestions.values());
+            chipView.setSuggestionsCellFactory(param -> new JFXListCell<>());
+
+            JFXDepthManager.setDepth(chipView, 2);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     class MyShape {
         String name;

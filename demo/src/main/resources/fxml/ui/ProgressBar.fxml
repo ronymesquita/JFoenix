@@ -4,7 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="demos.gui.uicomponents.ProgressBarController">
     <VBox spacing="50" alignment="BASELINE_CENTER" maxHeight="250">
         <JFXProgressBar fx:id="progress1" progress="100"></JFXProgressBar>
         <JFXProgressBar></JFXProgressBar>

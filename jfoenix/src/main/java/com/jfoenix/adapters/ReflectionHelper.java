@@ -50,7 +50,8 @@ public class ReflectionHelper {
     }
 
     private static void setAccessible(AccessibleObject obj) {
-        unsafe.putBoolean(obj, objectFieldOffset, true);
+        obj.setAccessible(true);
+        //unsafe.putBoolean(obj, objectFieldOffset, true);
     }
 
     public static <T> T invoke(Class cls, Object obj, String methodName) {

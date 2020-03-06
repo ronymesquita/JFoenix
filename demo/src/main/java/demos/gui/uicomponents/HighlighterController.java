@@ -1,26 +1,20 @@
 package demos.gui.uicomponents;
 
-import com.jfoenix.controls.*;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.utils.JFXHighlighter;
 import com.jfoenix.utils.JFXNodeUtils;
-import io.datafx.controller.ViewController;
-import io.datafx.controller.flow.context.FXMLViewFlowContext;
-import io.datafx.controller.flow.context.ViewFlowContext;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.annotation.PostConstruct;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-@ViewController(value = "/fxml/ui/Highlighter.fxml", title = "Material Design Example")
-public class HighlighterController {
+
+public class HighlighterController implements Initializable {
 
     @FXML
     private JFXTextField searchField;
@@ -32,10 +26,11 @@ public class HighlighterController {
     /**
      * init fxml when loaded.
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         JFXDepthManager.setDepth(content, 1);
         JFXNodeUtils.addDelayedEventHandler(searchField, Duration.millis(400),
             KeyEvent.KEY_PRESSED, event -> highlighter.highlight(content, searchField.getText()));
     }
+
 }

@@ -1,29 +1,16 @@
 package demos.components;
 
 import com.jfoenix.animation.alert.JFXAlertAnimation;
-import com.jfoenix.controls.*;
-import com.jfoenix.controls.JFXDrawer.DrawerDirection;
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import demos.components.base.Overdrive;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.scene.CacheHint;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.*;
-import javafx.util.Duration;
-
-import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class AlertDemo extends Overdrive {
 

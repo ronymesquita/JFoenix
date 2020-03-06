@@ -22,13 +22,17 @@ module demo.main {
 
     requires javafx.graphics;
     requires javafx.controls;
-    requires flow;
     requires javafx.fxml;
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.ikonli.javafx;
-	requires java.annotation;
+    requires java.annotation;
 
     exports demos.components to javafx.graphics;
     exports demos to javafx.graphics;
-    exports demos.gui.main to flow;
+    exports demos.gui.main to javafx.fxml;
+    exports demos.gui.sidemenu to javafx.fxml;
+    exports demos.gui.uicomponents to javafx.fxml;
+    opens demos.gui.main to javafx.fxml;
+    opens demos.gui.sidemenu to javafx.fxml;
+    opens demos.gui.uicomponents to javafx.fxml;
 }

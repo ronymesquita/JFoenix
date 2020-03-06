@@ -2,13 +2,9 @@ package demos.gui.uicomponents;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-import com.jfoenix.effects.JFXDepthManager;
-import io.datafx.controller.ViewController;
 import javafx.fxml.FXML;
 
-import javax.annotation.PostConstruct;
 
-@ViewController(value = "/fxml/ui/NodesList.fxml", title = "Material Design Example")
 public class NodesListController {
 
     @FXML
@@ -43,5 +39,6 @@ public class NodesListController {
         //Close list
         nodesList.animateList(false);
     }
+
 
 }
